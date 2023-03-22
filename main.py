@@ -4,8 +4,8 @@ import os
 import json
 import argparse
 def main():
-    parser = argparse.ArgumentParser(description='このプログラムの説明（なくてもよい）')    # 2. パーサを作る
-    parser.add_argument('profile_dir', help='Vivaldi Profile Path')    # 必須の引数を追加
+    parser = argparse.ArgumentParser()
+    parser.add_argument('profile_dir', help='Vivaldi Profile Path')
     parser.add_argument('export_dir', help='Export Destination (default: current dir)', nargs="?", default=".")
     parser.add_argument('-e', '--extension', help="File Extension of Notes (default: .md)", default=".md")
     parser.add_argument('-t', '--include_trash', help="Also Export Notes in Trash", action="store_true")
