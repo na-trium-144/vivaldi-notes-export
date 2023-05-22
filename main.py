@@ -8,10 +8,11 @@ def main():
     parser.add_argument('profile_dir', help='Vivaldi Profile Path')
     parser.add_argument('export_dir', help='Export Destination (default: current dir)', nargs="?", default=".")
     parser.add_argument('-e', '--extension', help="File Extension of Notes (default: .md)", default=".md")
+    parser.add_argument('-l', '--length', help="Maximum File Name Length (default: 30)", default="30")
     parser.add_argument('-t', '--include_trash', help="Also Export Notes in Trash", action="store_true")
     args = parser.parse_args()
     notes_file = os.path.join(args.profile_dir, "Notes")
-    with open(notes_file, "r") as f:
+    with open(notes_file, mode="r", encoding="utf-8", errors="replace") as f:
         notes_data = json.loads(f.read())
     for c in notes_data["children"]:
         parse_note(c, args.export_dir, args)
@@ -21,7 +22,7 @@ def parse_note(note, path, args):
         content = note["content"]
         id = note["id"]
         title = content.split("\n")[0].lstrip("#").strip()
-        title = "".join((i if i not in r'\/:*?"<>|' else '_') for i in title)
+        title = "".join((i if i not in r'\/:*?"<>|' else '_') for i in title)[:int(args.length)]
         if title == "":
             title = f"noname_{id}"
         # date = int(note["date_added"]) よくわからんのでパス

@@ -11,7 +11,7 @@ vivaldi://about からプロファイルのパスを調べ、それを引数に�
 オプションは以下
 
 ```
-usage: main.py [-h] [-e EXTENSION] [-t] profile_dir [export_dir]
+usage: main.py [-h] [-e EXTENSION] [-l LENGTH] [-t] profile_dir [export_dir]
 
 positional arguments:
   profile_dir           Vivaldi Profile Path
@@ -21,5 +21,7 @@ options:
   -h, --help            show this help message and exit
   -e EXTENSION, --extension EXTENSION
                         File Extension of Notes (default: .md)
+  -l LENGTH, --length LENGTH
+                        Maximum File Name Length (default: 30)
   -t, --include_trash   Also Export Notes in Trash
 ```
