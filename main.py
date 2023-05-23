@@ -31,11 +31,13 @@ def parse_note(note, path, args):
             content += "\n\n" + url
         filepath = os.path.join(path, title + args.extension) 
         print(filepath)
-        with open(filepath, "w") as f:
+        with open(filepath, mode="w", encoding="utf-8", errors="replace") as f:
             f.write(content)
         # os.utime(filepath, ns=(date * 100, date * 100))
     elif note["type"] == "folder":
-        path = os.path.join(path, note["subject"])
+        title = note["subject"]
+        title = "".join((i if i not in r'\/:*?"<>|' else '_') for i in title)[:int(args.length)]
+        path = os.path.join(path, title)
         try:
             os.mkdir(path)
         except FileExistsError:
