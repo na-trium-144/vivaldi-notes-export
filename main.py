@@ -3,6 +3,8 @@ import sys
 import os
 import json
 import argparse
+from pathvalidate import sanitize_filename
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('profile_dir', help='Vivaldi Profile Path')
@@ -22,7 +24,7 @@ def parse_note(note, path, args):
         content = note["content"]
         id = note["id"]
         title = content.split("\n")[0].lstrip("#").strip()
-        title = "".join((i if i not in r'\/:*?"<>|' else '_') for i in title)[:int(args.length)]
+        title = sanitize_filename(title[:int(args.length)])
         if title == "":
             title = f"noname_{id}"
         # date = int(note["date_added"]) よくわからんのでパス
@@ -36,7 +38,7 @@ def parse_note(note, path, args):
         # os.utime(filepath, ns=(date * 100, date * 100))
     elif note["type"] == "folder":
         title = note["subject"]
-        title = "".join((i if i not in r'\/:*?"<>|' else '_') for i in title)[:int(args.length)]
+        title = sanitize_filename(title[:int(args.length)])
         path = os.path.join(path, title)
         try:
             os.mkdir(path)

@@ -4,6 +4,12 @@ Vivaldiブラウザーのメモをフォルダ構造を保持してエクスポ�
 
 日付も保持したかったがdate_addedの形式がよくわからなかったのでパス
 
+## requirements
+
+```sh
+pip install pathvalidate
+```
+
 ## usage
 
 vivaldi://about からプロファイルのパスを調べ、それを引数に渡してmain.pyを実行する
